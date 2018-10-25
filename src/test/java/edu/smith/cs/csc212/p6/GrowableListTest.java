@@ -36,9 +36,9 @@ public class GrowableListTest {
 		data.addBack("a");
 		data.addBack("b");
 		data.addBack("c");
-		Assert.assertEquals("c", data.getIndex(2));
-
-		
+		Assert.assertEquals("c", data.getIndex(2)); //c should be at index 2
+		Assert.assertEquals("b", data.removeIndex(1)); //b should be at index 1, AND we're removing it
+		Assert.assertEquals("c", data.getIndex(1));//Now c should be moved back by one to index 1
 	}
 	
 	@Test
