@@ -31,6 +31,29 @@ public class GrowableListTest {
 	}
 	
 	@Test
+	public void testRemoveFront() {
+		P6List<String> data = new GrowableList<String>();
+		data.addBack("a");
+		data.addBack("b");
+		
+		data.removeFront();
+		
+		Assert.assertEquals("b", data.getIndex(0));	
+	}
+	
+	/*
+	 * Test that after removeBack the size is 1
+	 */
+	@Test
+	public void testRemoveBack() {
+		P6List<String> data = new GrowableList<String>();
+		data.addBack("a");
+		data.addBack("b");
+		data.removeBack();
+		Assert.assertEquals(1, data.size());
+	}
+	
+	@Test
 	public void testRemoveIndex() {
 		P6List<String> data = new GrowableList<String>();
 		data.addBack("a");
@@ -40,6 +63,30 @@ public class GrowableListTest {
 		Assert.assertEquals("b", data.removeIndex(1)); //b should be at index 1, AND we're removing it
 		Assert.assertEquals("c", data.getIndex(1));//Now c should be moved back by one to index 1
 	}
+	
+	@Test
+	public void testAddFront() {
+		P6List<String> data = new GrowableList<String>();
+		data.addFront("1");
+		Assert.assertEquals(1, data.size());
+		Assert.assertEquals("1", data.getIndex(0));
+		data.addFront("0");
+		Assert.assertEquals(2, data.size());
+		Assert.assertEquals("0", data.getIndex(0));
+		Assert.assertEquals("1", data.getIndex(1));
+		data.addFront("-1");
+		Assert.assertEquals(3, data.size());
+		Assert.assertEquals("-1", data.getIndex(0));
+		Assert.assertEquals("0", data.getIndex(1));
+		Assert.assertEquals("1", data.getIndex(2));
+		data.addFront("-2");
+		Assert.assertEquals("-2", data.getIndex(0));
+		Assert.assertEquals("-1", data.getIndex(1));
+		Assert.assertEquals("0", data.getIndex(2));
+		Assert.assertEquals("1", data.getIndex(3));	
+	}
+	
+	
 	
 	@Test
 	public void testAddBack() {
@@ -64,7 +111,51 @@ public class GrowableListTest {
 		
 	}
 	
+	@Test
+	public void testAddIndex() {
+		P6List<String> data = new GrowableList<String>();
+		data.addBack("a");
+		data.addBack("b");
+		data.addBack("c");
+		Assert.assertEquals("b", data.getIndex(1));
+		data.addIndex("d", 1);
+		Assert.assertEquals("d",  data.getIndex(1));
+		Assert.assertEquals("b",  data.getIndex(2));
+	}
 	
+	@Test 
+	public void testGetFront() {
+		P6List<String> data = new GrowableList<String>();
+		data.addBack("a");
+		data.addBack("b");
+		Assert.assertEquals("a", data.getIndex(0));
+	}
+	
+	@Test
+	public void testGetBack() {
+		P6List<String> data = new GrowableList<String>();
+		data.addBack("a");
+		Assert.assertEquals("a",  data.getBack());
+		data.addBack("b");
+		Assert.assertEquals("b", data.getBack());
+	}
+	@Test
+	public void testGetIndex() {
+		P6List<String> data = new GrowableList<String>();
+		data.addBack("a");
+		data.addBack("b");
+		
+		Assert.assertEquals("b",  data.getIndex(1));
+	}
+	
+	@Test
+	public void testSize() {
+		P6List<String> data = new GrowableList<String>();
+		data.addBack("a");
+		data.addBack("b");
+		
+		Assert.assertEquals(2, data.size());
+	}
 
 
 }

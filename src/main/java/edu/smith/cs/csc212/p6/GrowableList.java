@@ -16,6 +16,9 @@ public class GrowableList<T> implements P6List<T> {
 
 	@Override
 	public T removeFront() {
+		if (this.size() == 0) {
+			throw new EmptyListError();
+		}
 		return removeIndex(0);
 	}
 
@@ -50,6 +53,9 @@ public class GrowableList<T> implements P6List<T> {
 		//You don't want to have an error if it's an empty list, because you could 
 		//want to add to an empty list! 
 		//test that it's not going over it's length limit
+		if (fill >= this.array.length) { 
+			throw new RanOutOfSpaceError();
+		}
 		addIndex(item, 0);
 	}
 
@@ -57,7 +63,7 @@ public class GrowableList<T> implements P6List<T> {
 	public void addBack(T item) {
 		// I've implemented part of this for you.
 		if (fill >= this.array.length) { 
-			throw new P6NotImplemented();
+			throw new RanOutOfSpaceError();
 		}
 		this.array[fill++] = item;
 	}
@@ -83,11 +89,17 @@ public class GrowableList<T> implements P6List<T> {
 	
 	@Override
 	public T getFront() {
+		if (this.size() == 0) {
+			throw new EmptyListError();
+		}
 		return this.getIndex(0);
 	}
 
 	@Override
 	public T getBack() {
+		if (this.size() == 0) {
+			throw new EmptyListError();
+		}
 		return this.getIndex(this.fill-1);
 	}
 
@@ -99,6 +111,9 @@ public class GrowableList<T> implements P6List<T> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public T getIndex(int index) {
+		if (this.size() == 0) {
+			throw new EmptyListError();
+		}
 		return (T) this.array[index];
 	}
 
