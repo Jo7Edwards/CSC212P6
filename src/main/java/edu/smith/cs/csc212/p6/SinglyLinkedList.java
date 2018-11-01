@@ -4,8 +4,8 @@ import java.util.Iterator;
 
 import edu.smith.cs.csc212.p6.errors.BadIndexError;
 import edu.smith.cs.csc212.p6.errors.EmptyListError;
-import edu.smith.cs.csc212.p6.errors.P6NotImplemented;
-import edu.smith.cs.csc212.testlab.Node;
+//import edu.smith.cs.csc212.p6.errors.P6NotImplemented;
+//import edu.smith.cs.csc212.testlab.Node;
 
 public class SinglyLinkedList<T> implements P6List<T>, Iterable<T> {
 	/*
@@ -57,13 +57,44 @@ public class SinglyLinkedList<T> implements P6List<T>, Iterable<T> {
 		throw new EmptyListError();
 	}
 
-
+	/*
+	 *Iterate through nodes. If index is 0 and you're at the start, just remove front and 
+	 *return current value (saved in last). If index !=0, then when at == index save that value
+	 *to before and then from now on, for every node set the value of the node you're on to 
+	 *the one after it. At the end, you'll have two nodes in a row at the end of your list
+	 * w/ the same value so you delete the last one in the list.
+	 */
 	@Override
 	public T removeIndex(int index) {
-		checkNotEmpty();
-		
-		
-		
+		if (index >= this.size()) {
+			throw new BadIndexError();
+		}
+		int at = 0;
+		Node<T> last = null;
+		T before = null;
+
+		for (Node<T> current = start; current != null; current = current.next) {
+			
+			last = current;
+			if (index == 0 && at == 0) {
+				this.removeFront();
+				return last.value; 
+			} else if (at == index) {
+				before = last.value;
+				current.value = current.next.value;
+			} else if (at > index) {
+
+				if (current.next != null) {
+					current.value = current.next.value;
+
+				} else {
+					this.removeBack();
+				}
+			}
+			at++;
+		}
+
+		return before;
 	}
 
 	@Override
