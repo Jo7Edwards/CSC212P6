@@ -93,7 +93,6 @@ public class SinglyLinkedList<T> implements P6List<T>, Iterable<T> {
 			}
 			at++;
 		}
-
 		return before;
 	}
 

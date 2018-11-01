@@ -1,7 +1,7 @@
 package edu.smith.cs.csc212.p6;
 
 import edu.smith.cs.csc212.p6.errors.EmptyListError;
-import edu.smith.cs.csc212.p6.errors.P6NotImplemented;
+//import edu.smith.cs.csc212.p6.errors.P6NotImplemented;
 import edu.smith.cs.csc212.p6.errors.RanOutOfSpaceError;
 
 public class GrowableList<T> implements P6List<T> {

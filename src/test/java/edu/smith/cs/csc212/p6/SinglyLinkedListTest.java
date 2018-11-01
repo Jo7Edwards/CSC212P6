@@ -81,16 +81,17 @@ public class SinglyLinkedListTest {
 	public void testAddIndex() {
 		P6List<String> data = new SinglyLinkedList<String>();
 		data.addBack("a");
-		data.addBack("b"); //a, b
-		
-		data.addIndex("c", 1); //a, c, b
+		data.addBack("b");//a, b
+		//Should be able to add in the middle and everything move over
+		data.addIndex("c", 1); //a, c, b, 
 		Assert.assertEquals("c",  data.getIndex(1));
 		Assert.assertEquals("b",  data.getIndex(2));
 		
+		//Should be able to add to end
 		data.addIndex("d", 3);//a, c, b, d
 		
 		Assert.assertEquals("d", data.getIndex(3));
-		
+		//Should be able to add to beginning and everything move over
 		data.addIndex("1", 0);//1, a, c, b, d
 		
 		Assert.assertEquals("1",  data.getIndex(0));
@@ -123,6 +124,26 @@ public class SinglyLinkedListTest {
 		data.addFront("a");
 		
 		Assert.assertEquals("b", data.getIndex(1));
+	}
+	
+	@Test 
+	public void testSize() {
+		P6List<String> data = new SinglyLinkedList<String>();
+		Assert.assertEquals(0,  data.size());
+		data.addBack("a");
+		data.addBack("b"); // a, b
+		
+		Assert.assertEquals(2,  data.size());
+	}
+	
+	@Test
+	public void testIsEmpty() {
+		P6List<String> data = new SinglyLinkedList<String>();
+		Assert.assertEquals(true, data.isEmpty());
+		data.addBack("a");
+		data.addBack("b"); //a, b
+		
+		Assert.assertEquals(false,  data.isEmpty());
 	}
 	
 	
