@@ -113,14 +113,24 @@ public class GrowableListTest {
 	
 	@Test
 	public void testAddIndex() {
-		P6List<String> data = new GrowableList<String>();
+		P6List<String> data = new SinglyLinkedList<String>();
 		data.addBack("a");
-		data.addBack("b");
-		data.addBack("c");
-		Assert.assertEquals("b", data.getIndex(1));
-		data.addIndex("d", 1);
-		Assert.assertEquals("d",  data.getIndex(1));
+		data.addBack("b"); //a, b
+		
+		data.addIndex("c", 1); //a, c, b
+		Assert.assertEquals("c",  data.getIndex(1));
 		Assert.assertEquals("b",  data.getIndex(2));
+		
+		data.addIndex("d", 3);//a, c, b, d
+		
+		Assert.assertEquals("d", data.getIndex(3));
+		
+		data.addIndex("1", 0);//1, a, c, b, d
+		
+		Assert.assertEquals("1",  data.getIndex(0));
+		Assert.assertEquals("a",  data.getIndex(1));
+		Assert.assertEquals("d",  data.getIndex(4));
+		
 	}
 	
 	@Test 

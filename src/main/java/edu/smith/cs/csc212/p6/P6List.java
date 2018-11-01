@@ -71,6 +71,8 @@ public interface P6List<T> {
 	 * Add an item before ``index`` in this list. Therefore,
 	 * {@code addIndex(item, 0)} is the same as {@code addFront(item)}.
 	 * 
+	 * Should be able to add at the beginning (index 0) and end (index == size())
+	 * 
 	 * @param item  the data to add to the list.
 	 * @param index the index at which to add the item.
 	 */
