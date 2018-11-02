@@ -66,6 +66,7 @@ public class SinglyLinkedList<T> implements P6List<T>, Iterable<T> {
 	 */
 	@Override
 	public T removeIndex(int index) {
+		checkNotEmpty();
 		if (index >= this.size()) {
 			throw new BadIndexError();
 		}
@@ -137,13 +138,11 @@ public class SinglyLinkedList<T> implements P6List<T>, Iterable<T> {
 			at++;
 			}	
 		}
-		
-		
-		
 	
 
 	@Override
 	public T getFront() {
+		checkNotEmpty();
 		return start.value;
 	}
 
@@ -164,6 +163,7 @@ public class SinglyLinkedList<T> implements P6List<T>, Iterable<T> {
 
 	@Override
 	public T getIndex(int index) {
+		checkNotEmpty();
 		int at = 0;
 		for (Node<T> current = start; current != null; current = current.next) {
 			if (at == index) {
@@ -203,6 +203,7 @@ public class SinglyLinkedList<T> implements P6List<T>, Iterable<T> {
 	 * 
 	 * @param <T> the type of the values stored.
 	 */
+	//Changed from private
 	private static class Node<T> {
 		/**
 		 * What node comes after me?

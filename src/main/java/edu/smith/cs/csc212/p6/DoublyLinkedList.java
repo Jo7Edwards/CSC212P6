@@ -1,7 +1,11 @@
 package edu.smith.cs.csc212.p6;
 
+//import edu.smith.cs.csc212.p6.SinglyLinkedList.Node;
+import edu.smith.cs.csc212.p6.errors.BadIndexError;
+//import edu.smith.cs.csc212.p6.SinglyLinkedList.Node;
 import edu.smith.cs.csc212.p6.errors.EmptyListError;
 import edu.smith.cs.csc212.p6.errors.P6NotImplemented;
+
 
 
 
@@ -21,7 +25,9 @@ public class DoublyLinkedList<T> implements P6List<T> {
 	@Override
 	public T removeFront() {
 		checkNotEmpty();
-		throw new P6NotImplemented();
+		if (this.size() == 1) {
+			
+		}
 	}
 
 	@Override
@@ -38,12 +44,37 @@ public class DoublyLinkedList<T> implements P6List<T> {
 
 	@Override
 	public void addFront(T item) {
-		throw new P6NotImplemented();
+		Node<T> newNode = new Node<T>(item);
+		//if the list is empty
+		if (this.start == null) {
+			this.start = newNode;
+			this.end = newNode;
+			
+		}
 	}
 
 	@Override
 	public void addBack(T item) {
-		throw new P6NotImplemented();
+		
+		//Make a new node that has value of item
+		Node<T> newNode = new Node<T>(item);
+		//if list is empty
+		if (this.end == null) {
+			this.start = newNode;
+			this.end = newNode;
+			
+		} else {
+			//NEED TO SET PREV TO NEXT NEWNODE, THEN SET
+			//NEWNODE BEFORE, AFTER, AND ITSELF
+			this.end.after = newNode;
+			
+			//set newNode's before to the current end node, and after to null
+			newNode.before = this.end;
+			newNode.after = null;
+			//now make the end of this list equal to this new node
+			this.end = newNode;
+		}
+		
 	}
 
 	@Override
@@ -53,28 +84,42 @@ public class DoublyLinkedList<T> implements P6List<T> {
 
 	@Override
 	public T getFront() {
-		throw new P6NotImplemented();
+		checkNotEmpty();
+		return this.start.value;
 	}
 
 	@Override
 	public T getBack() {
-		throw new P6NotImplemented();
+		checkNotEmpty();
+		return this.end.value;
 	}
 	
 	@Override
 	public T getIndex(int index) {
 		checkNotEmpty();
-		throw new P6NotImplemented();
+		int at = 0;
+		for (Node<T> current = start; current != null; current = current.after) {
+			if (at == index) {
+				return current.value;
+			}
+			at++;
+		}
+		throw new BadIndexError();	
 	}
+	
 
 	@Override
 	public int size() {
-		throw new P6NotImplemented();
+		int count = 0;
+		for (Node<T> n = this.start; n != null; n = n.after) {
+			count++;
+		}
+		return count;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		throw new P6NotImplemented();
+		return this.size() == 0;
 	}
 	
 	private void checkNotEmpty() {
@@ -82,6 +127,12 @@ public class DoublyLinkedList<T> implements P6List<T> {
 			throw new EmptyListError();
 		}
 	}
+	
+	/*private Node<T> NewNode(T item) {
+		Node<T> newNode = null;
+		newNode.value = item;
+		return newNode;
+	}*/
 	
 	/**
 	 * The node on any linked list should not be exposed.
