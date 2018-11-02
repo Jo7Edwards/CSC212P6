@@ -1,6 +1,7 @@
 package edu.smith.cs.csc212.p6;
 
 //import edu.smith.cs.csc212.p6.SinglyLinkedList.Node;
+//import edu.smith.cs.csc212.p6.SinglyLinkedList.Node;
 import edu.smith.cs.csc212.p6.errors.BadIndexError;
 //import edu.smith.cs.csc212.p6.SinglyLinkedList.Node;
 import edu.smith.cs.csc212.p6.errors.EmptyListError;
@@ -25,15 +26,35 @@ public class DoublyLinkedList<T> implements P6List<T> {
 	@Override
 	public T removeFront() {
 		checkNotEmpty();
+		Node<T> removed = new Node<T>(null);
+		
 		if (this.size() == 1) {
-			
-		}
+			removed = this.start;
+			this.start = null;
+			return removed.value;
+		} else {
+			removed = this.start;
+			this.start = this.start.after;
+			this.start.before = null;
+			return removed.value;
+		}	
+		
 	}
 
 	@Override
 	public T removeBack() {
 		checkNotEmpty();
-		throw new P6NotImplemented();
+		Node<T> removed = new Node<T>(null);
+		if (this.size() == 1) {
+			removed = this.start;
+			this.start = null;
+			return removed.value;
+		} else {
+			removed = this.end;
+			this.end = this.end.before;
+			this.end.after = null;
+			return removed.value;
+		}
 	}
 
 	@Override
@@ -45,10 +66,15 @@ public class DoublyLinkedList<T> implements P6List<T> {
 	@Override
 	public void addFront(T item) {
 		Node<T> newNode = new Node<T>(item);
+		Node<T> beforeNode = new Node<T>(null);
 		//if the list is empty
 		if (this.start == null) {
 			this.start = newNode;
-			this.end = newNode;
+			this.end = newNode;		
+		} else {
+			beforeNode = this.start;
+			this.start = newNode;
+			this.start.after = beforeNode;
 			
 		}
 	}
@@ -79,8 +105,29 @@ public class DoublyLinkedList<T> implements P6List<T> {
 
 	@Override
 	public void addIndex(T item, int index) {
-		throw new P6NotImplemented();
+		if (index > this.size()) {
+			throw new BadIndexError();
+		}
+		
+		Node<T> newNode = new Node<T>(item);
+		int at = 0;
+		for (Node<T> current = start; current != null; current = current.after) {
+			if (at == 0 && index == 0) {
+				this.addFront(item);
+			} else if (at == index -1) {
+				if (current.after == null) {
+					newNode.before = current;
+					this.end = newNode;
+				} else {
+					newNode.after = current.after;
+					current.after.before = newNode;
+					newNode.before = current;
+				}
+			}
+		}
+	
 	}
+	
 
 	@Override
 	public T getFront() {
